@@ -1,0 +1,13 @@
+../Core/Src/command.c:13:6:ProcessCommand	24	static
+../Core/Src/command.c:36:6:SensorI2CCommand	40	static
+../Core/Src/command.c:84:6:SetI2CCommand	24	static
+../Core/Src/command.c:136:6:RevCommand	32	static
+../Core/Src/command.c:153:6:LinCommand	32	static
+../Core/Src/command.c:170:6:ServoCommand	24	static
+../Core/Src/command.c:183:6:Servo2Command	24	static
+../Core/Src/command.c:194:6:AvgStdCommand	16	static
+../Core/Src/command.c:213:6:InferenceHeatI2CCommand	56	static
+../Core/Src/command.c:333:6:PointingVertical	64	static
+../Core/Src/command.c:468:6:PointingRadial	16	static
+../Core/Src/command.c:479:6:InitializaionCalibrationCommand	32	static
+../Core/Src/command.c:562:6:AutoI2CCommand	64	static
