@@ -30,8 +30,9 @@ while True:
 
 
     # 이 문자열을 파일 경로에 포함시킵니다.
-    file_path = "C:/Users/21310/Desktop/PJH/Software/TACTS/MicroController/DataCol_Python/CollectedData/" + time_string + "_4kPa_6.5V_3line_Zero_Data.csv"
+    file_path = "C:/Users/21310/Desktop/PJH/TACTS/DataCollection_Python/CollectedData/" + time_string + "_4kPa_6.5V_3line_Zero_Data.csv"
     #print(file_path)
+
 
     if len(SsplitPacket) >= len(tof):
         file = open(file_path, 'a',encoding = "utf-8", newline='')

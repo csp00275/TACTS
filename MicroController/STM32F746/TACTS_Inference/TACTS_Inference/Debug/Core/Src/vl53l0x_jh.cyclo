@@ -1,4 +1,0 @@
-vl53l0x_jh.c:148:6:ResetAllDevices	2
-vl53l0x_jh.c:154:6:ResetDevicesExcept	3
-vl53l0x_jh.c:162:6:setActiveTcaChannel	1
-vl53l0x_jh.c:166:6:setOnAllDevices	2
