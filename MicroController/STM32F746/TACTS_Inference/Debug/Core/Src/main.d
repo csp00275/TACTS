@@ -44,6 +44,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../X-CUBE-AI/App/threeLine.h ../X-CUBE-AI/App/threeline_config.h \
  ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/threeLine_data.h \
  ../X-CUBE-AI/App/threeline_data_params.h ../Core/Inc/ai.h \
+ ../X-CUBE-AI/App/fourLine.h ../X-CUBE-AI/App/fourline_config.h \
+ ../X-CUBE-AI/App/fourLine_data.h ../X-CUBE-AI/App/fourline_data_params.h \
  ../Core/Inc/avgstd.h ../Core/Inc/motor.h ../Core/Inc/command.h \
  ../Core/Inc/main.h ../Core/Inc/usart.h ../Core/Inc/ai.h \
  ../Core/Inc/avgstd.h ../Core/Inc/motor.h ../Core/Inc/hx711.h \
@@ -102,6 +104,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../X-CUBE-AI/App/threeLine_data.h:
 ../X-CUBE-AI/App/threeline_data_params.h:
 ../Core/Inc/ai.h:
+../X-CUBE-AI/App/fourLine.h:
+../X-CUBE-AI/App/fourline_config.h:
+../X-CUBE-AI/App/fourLine_data.h:
+../X-CUBE-AI/App/fourline_data_params.h:
 ../Core/Inc/avgstd.h:
 ../Core/Inc/motor.h:
 ../Core/Inc/command.h:

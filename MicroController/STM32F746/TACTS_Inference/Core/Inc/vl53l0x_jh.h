@@ -10,7 +10,7 @@
 #define INC_VL53L0X_JH_H_
 
 #define VL53L0X_ADDR	0x29 << 1 // Default I2C address of VL53L0X
-#define NUM_SENSOR 36
+#define NUM_SENSOR 48
 #define TIMBUDGET 100
 
 

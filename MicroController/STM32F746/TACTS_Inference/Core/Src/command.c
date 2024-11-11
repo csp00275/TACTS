@@ -6,7 +6,7 @@
  */
 #include "command.h"
 
-#define data1
+#define data
 
 volatile uint8_t command_in_progress = 0; // 명령 실행 중 상태 플래그
 
@@ -527,7 +527,7 @@ void InitializaionCalibrationCommand()
   		VL53L0X_SetVcselPulsePeriod( Dev, VL53L0X_VCSEL_PERIOD_PRE_RANGE, 18);
   		VL53L0X_SetVcselPulsePeriod( Dev, VL53L0X_VCSEL_PERIOD_FINAL_RANGE, 14);
 
-		Kalman_Init(&filters[i], Q, R, P, 0);  // Q, R, P, 초기�????????
+		Kalman_Init(&filters[i], Q, R, P, 0);  // Q, R, P
 
  		HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%02d ",i), 100);
  		if(i%12 ==11){HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "\n\r"), 100);}

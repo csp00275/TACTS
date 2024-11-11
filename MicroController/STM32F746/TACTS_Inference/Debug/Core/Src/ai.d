@@ -40,9 +40,9 @@ Core/Src/ai.o: ../Core/Src/ai.c ../Core/Inc/ai.h ../Core/Inc/vl53l0x_jh.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart.h \
  ../Drivers/STM32F7xx_HAL_Driver/Inc/stm32f7xx_hal_uart_ex.h \
  ../Core/Inc/kalman.h ../Core/Inc/i2c.h ../Core/Inc/main.h \
- ../X-CUBE-AI/App/threeLine.h ../X-CUBE-AI/App/threeline_config.h \
- ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/threeLine_data.h \
- ../X-CUBE-AI/App/threeline_data_params.h ../Core/Inc/usart.h \
+ ../X-CUBE-AI/App/fourLine.h ../X-CUBE-AI/App/fourline_config.h \
+ ../Middlewares/ST/AI/Inc/ai_platform.h ../X-CUBE-AI/App/fourLine_data.h \
+ ../X-CUBE-AI/App/fourline_data_params.h ../Core/Inc/usart.h \
  ../Core/Inc/vl53l0x_jh.h
 ../Core/Inc/ai.h:
 ../Core/Inc/vl53l0x_jh.h:
@@ -89,10 +89,10 @@ Core/Src/ai.o: ../Core/Src/ai.c ../Core/Inc/ai.h ../Core/Inc/vl53l0x_jh.h \
 ../Core/Inc/kalman.h:
 ../Core/Inc/i2c.h:
 ../Core/Inc/main.h:
-../X-CUBE-AI/App/threeLine.h:
-../X-CUBE-AI/App/threeline_config.h:
+../X-CUBE-AI/App/fourLine.h:
+../X-CUBE-AI/App/fourline_config.h:
 ../Middlewares/ST/AI/Inc/ai_platform.h:
-../X-CUBE-AI/App/threeLine_data.h:
-../X-CUBE-AI/App/threeline_data_params.h:
+../X-CUBE-AI/App/fourLine_data.h:
+../X-CUBE-AI/App/fourline_data_params.h:
 ../Core/Inc/usart.h:
 ../Core/Inc/vl53l0x_jh.h:

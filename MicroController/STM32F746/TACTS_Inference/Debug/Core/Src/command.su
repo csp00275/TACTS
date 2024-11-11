@@ -1,5 +1,5 @@
 ../Core/Src/command.c:17:6:ProcessCommand	24	static
-../Core/Src/command.c:49:6:SensorI2CCommand	40	static
+../Core/Src/command.c:49:6:SensorI2CCommand	48	static
 ../Core/Src/command.c:96:6:SetI2CCommand	24	static
 ../Core/Src/command.c:148:6:RevCommand	32	static
 ../Core/Src/command.c:165:6:LinCommand	32	static
