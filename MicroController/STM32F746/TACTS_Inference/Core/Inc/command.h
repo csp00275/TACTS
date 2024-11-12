@@ -32,6 +32,7 @@ void RevCommand(char *arg);
 void LinCommand(char *arg);
 void ServoCommand();
 void Servo2Command();
+void Servo3Command();
 void AvgStdCommand();
 void InferenceHeatI2CCommand();
 void PointingVertical();

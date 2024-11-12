@@ -7,9 +7,13 @@
 #include "stm32f7xx_hal.h"
 #include "motor.h"
 #include "usart.h"
+#include "stdio.h"
 
 #define PULSE 200
 #define GEAR 139
+
+#define MIN_PULSE 50   // 1ms 펄스에 해당
+#define MAX_PULSE 100  // 2ms 펄스에 해당
 
 void stepRev(int ANG) {
 
@@ -76,12 +80,22 @@ void stepLin(int DIST) {
 void servo_angle(TIM_HandleTypeDef *htim, uint32_t channel, int step) {
 
 	// 1 step is 0.8 mm
-    if (step > 15)
-    	step = 15; // 최대 각도 제한
 
-    int pulse_width = 20-step; // 듀티 사이클 계산 (0도에서 180도까지)
+    int pulse_width = step; // 듀티 사이클 계산 (0도에서 180도까지)
     __HAL_TIM_SET_COMPARE(htim, channel, pulse_width); // 듀티 사이클 변경
+    HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "pulse_width : %d \n\r", pulse_width), 100);
+
 }
 
+void setServoAngle(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t value) {
+    uint16_t pulse_length;
+    // 각도에 따른 펄스 길이 계산
+    if(value<0){value = 0;}
+    if(value>180){value = 180;}
+    pulse_length = value+22;
+	__HAL_TIM_SET_COMPARE(htim, channel, pulse_length); // 듀티 사이클 변경
+    HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "pulse_length : %2f \n\r", value*0.94), 100);
+
+}
 
 

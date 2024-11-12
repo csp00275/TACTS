@@ -1,3 +1,4 @@
-../Core/Src/motor.c:14:6:stepRev	32	static
-../Core/Src/motor.c:44:6:stepLin	32	static
-../Core/Src/motor.c:76:6:servo_angle	32	static
+../Core/Src/motor.c:18:6:stepRev	32	static
+../Core/Src/motor.c:48:6:stepLin	32	static
+../Core/Src/motor.c:80:6:servo_angle	32	static
+../Core/Src/motor.c:90:6:setServoAngle	32	static

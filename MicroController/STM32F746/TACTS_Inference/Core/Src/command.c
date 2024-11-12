@@ -183,10 +183,10 @@ void ServoCommand(char *arg){
     float servo_angle_val = 0;
     if(sscanf(arg, "%f", &servo_angle_val) == 1) {
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo Still moving \n\r", servo_angle_val), 100);
-    	servo_angle(&htim2, TIM_CHANNEL_1, servo_angle_val);
+    	setServoAngle(&htim2, TIM_CHANNEL_1, servo_angle_val);
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo End \n\r", servo_angle_val), 100);
         HAL_Delay(2000); // Delay for 2 seconds
-        servo_angle(&htim2, TIM_CHANNEL_1, 0); // return to servo origin
+        setServoAngle(&htim2, TIM_CHANNEL_1, 0); // return to servo origin
     }else{
         HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "invalid data\r\n"), 100);
     }
@@ -196,12 +196,15 @@ void Servo2Command(char *arg){
     float servo_angle_val = 0;
     if(sscanf(arg, "%f", &servo_angle_val) == 1) {
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo Still moving \n\r", servo_angle_val), 100);
-    	servo_angle(&htim2, TIM_CHANNEL_1, servo_angle_val);
+    	setServoAngle(&htim2, TIM_CHANNEL_1, servo_angle_val);
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo End \n\r", servo_angle_val), 100);
     }else{
         HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "invalid data\r\n"), 100);
     }
 }
+
+
+
 
 void AvgStdCommand(){
 	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "Avg Std Force Z\n" ), 1000);
@@ -584,13 +587,13 @@ void AutoI2CCommand(){
     uint32_t startTime = 0, endTime = 0;
     uint8_t diffTime = 0;
 
-    servo_angle(&htim2, TIM_CHANNEL_1, 0); // 초기 ?��?�� ?���?? ?��?��
+    setServoAngle(&htim2, TIM_CHANNEL_1, 0); // 초기 ?��?�� ?���?? ?��?��
 
     for(int lin = 2; lin < 19; lin++){
         for(int rev = 0; rev < 72; rev++){
-            for(int r = 1; r <6; r++){
-                servo_angle(&htim2, TIM_CHANNEL_1, 2*r); // ?��?�� ?��?��
-                HAL_Delay(200);
+            for(int r = 0; r <20; r+=10){
+            	setServoAngle(&htim2, TIM_CHANNEL_1, r); // ?��?�� ?��?��
+                HAL_Delay(300);
                 int tofHitCount = 0;
                 while(tofHitCount < 20){
                     uint8_t tofcount = 0;
@@ -635,13 +638,14 @@ void AutoI2CCommand(){
                         break;
                     }
                 }
-                servo_angle(&htim2, TIM_CHANNEL_1, 0); // ?��?�� ?��치로 ?��?���??
-                HAL_Delay(200);
+                setServoAngle(&htim2, TIM_CHANNEL_1, 0); // ?��?�� ?��치로 ?��?���??
+                HAL_Delay(100);
+
             }
 
             stepRev(5); // ?�� 바�?? ?��?��
         }
-        HAL_Delay(500);
+        HAL_Delay(200);
         stepRev(-360); // ?��?���??
         stepLin(-8); // ?��?�� ?��?��
     }
