@@ -91,10 +91,10 @@ void setServoAngle(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t value) {
     uint16_t pulse_length;
     // 각도에 따른 펄스 길이 계산
     if(value<0){value = 0;}
-    if(value>180){value = 180;}
+    if(value>100){value = 100;}
     pulse_length = value+22;
 	__HAL_TIM_SET_COMPARE(htim, channel, pulse_length); // 듀티 사이클 변경
-    HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "pulse_length : %2f \n\r", value*0.94), 100);
+    HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "pulse_length : %2f \n\r", value*0.47), 100);
 
 }
 

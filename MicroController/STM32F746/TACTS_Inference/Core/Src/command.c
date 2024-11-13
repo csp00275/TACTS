@@ -591,9 +591,9 @@ void AutoI2CCommand(){
 
     for(int lin = 2; lin < 19; lin++){
         for(int rev = 0; rev < 72; rev++){
-            for(int r = 0; r <20; r+=10){
+            for(int r = 20; r <70; r+=10){
             	setServoAngle(&htim2, TIM_CHANNEL_1, r); // ?��?�� ?��?��
-                HAL_Delay(300);
+                HAL_Delay(r*6+100);
                 int tofHitCount = 0;
                 while(tofHitCount < 20){
                     uint8_t tofcount = 0;
@@ -617,7 +617,7 @@ void AutoI2CCommand(){
    						}
    						if(tofcount==NUM_SENSOR){
    							for(int i = 0; i< NUM_SENSOR;i++){
-   							  HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.1f ", filteredValue[i]), 500);
+   							  HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.1f ", filteredValue[i]), 100);
    							}
    	                        tofHitCount++;
    						}
@@ -632,14 +632,14 @@ void AutoI2CCommand(){
    					diffTime = 0;
 
    					UART_SendWeight_N(Hx711Data,-1/1600.00f,0); // Send the weight data over UART
-   					HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, " %d %d %d\n", 8*lin, 5*rev, 2*r), 500);
+   					HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, " %d %d %d\n", 8*lin, 5*rev, r), 100);
 
                     if (tofHitCount >= 20) {
                         break;
                     }
                 }
-                setServoAngle(&htim2, TIM_CHANNEL_1, 0); // ?��?�� ?��치로 ?��?���??
-                HAL_Delay(100);
+                setServoAngle(&htim2, TIM_CHANNEL_1, 10); // ?��?�� ?��치로 ?��?���??
+                HAL_Delay((r-10)*6+100);
 
             }
 
