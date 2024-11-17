@@ -30,6 +30,8 @@ void stepRev(int ANG);
 void stepLin(int ANG);
 void servo_angle(TIM_HandleTypeDef *htim, uint32_t channel, int angle);
 void setServoAngle(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t angle);
+void sayServoAngle(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t angle);
+
 /* USER CODE BEGIN Prototypes */
 
 /* USER CODE END Prototypes */

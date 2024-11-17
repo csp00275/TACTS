@@ -183,10 +183,10 @@ void ServoCommand(char *arg){
     float servo_angle_val = 0;
     if(sscanf(arg, "%f", &servo_angle_val) == 1) {
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo Still moving \n\r", servo_angle_val), 100);
-    	setServoAngle(&htim2, TIM_CHANNEL_1, servo_angle_val);
+    	sayServoAngle(&htim2, TIM_CHANNEL_1, servo_angle_val);
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo End \n\r", servo_angle_val), 100);
         HAL_Delay(2000); // Delay for 2 seconds
-        setServoAngle(&htim2, TIM_CHANNEL_1, 0); // return to servo origin
+        sayServoAngle(&htim2, TIM_CHANNEL_1, 0); // return to servo origin
     }else{
         HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "invalid data\r\n"), 100);
     }
@@ -196,7 +196,7 @@ void Servo2Command(char *arg){
     float servo_angle_val = 0;
     if(sscanf(arg, "%f", &servo_angle_val) == 1) {
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo Still moving \n\r", servo_angle_val), 100);
-    	setServoAngle(&htim2, TIM_CHANNEL_1, servo_angle_val);
+    	sayServoAngle(&htim2, TIM_CHANNEL_1, servo_angle_val);
     	HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f servo End \n\r", servo_angle_val), 100);
     }else{
         HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "invalid data\r\n"), 100);
@@ -591,13 +591,13 @@ void AutoI2CCommand(){
 
     for(int lin = 2; lin < 19; lin++){
         for(int rev = 0; rev < 72; rev++){
-            for(int r = 20; r <70; r+=10){
+            for(int r = 20; r <65; r+=5){
             	setServoAngle(&htim2, TIM_CHANNEL_1, r); // ?��?�� ?��?��
                 HAL_Delay(r*6+100);
                 int tofHitCount = 0;
                 while(tofHitCount < 20){
                     uint8_t tofcount = 0;
-					if(lin ==2 && rev ==0 && r == 1){
+					if(lin ==2 && rev ==0 && r == 20){
 						forceSensorZeroPoint = Read_HX711();
 						Hx711Data = 0;
 					}else{
@@ -647,7 +647,7 @@ void AutoI2CCommand(){
         }
         HAL_Delay(200);
         stepRev(-360); // ?��?���??
-        stepLin(-8); // ?��?�� ?��?��
+        stepLin(8); // ?��?�� ?��?��
     }
     //stepLin(144); // 마�?�?? ?��치로 ?��?��
 }
