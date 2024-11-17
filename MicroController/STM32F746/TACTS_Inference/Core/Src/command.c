@@ -40,6 +40,7 @@ void ProcessCommand(uint8_t *commandBuffer)
     else if (strcmp((char*)command, "pointr") == 0) {PointingRadial();} // (0,20) -> (0,140)
     else if (strcmp((char*)command, "ini") == 0) {InitializaionCalibrationCommand();}
     else if (strcmp((char*)command, "autoi2c") == 0) {AutoI2CCommand();}
+    else if (strcmp((char*)command, "loadcell") == 0) {LoadcellCommand();}
     else {HAL_UART_Transmit(&huart1, txMsg, sprintf((char*)txMsg, "Please insert correct command\n"), 100);}
 
     command_in_progress = 0; // 명령 실행 완료 상태 해제
@@ -583,7 +584,7 @@ void AutoI2CCommand(){
     ResetAllDevices();
     setOnAllDevices();
 
-    float forceSensorZeroPoint = 0.0f;
+    //float forceSensorZeroPoint = 0.0f;
     uint32_t startTime = 0, endTime = 0;
     uint8_t diffTime = 0;
 
@@ -591,18 +592,23 @@ void AutoI2CCommand(){
 
     for(int lin = 2; lin < 19; lin++){
         for(int rev = 0; rev < 72; rev++){
-            for(int r = 20; r <65; r+=5){
+            for(int r = 30; r <80; r+=10){
             	setServoAngle(&htim2, TIM_CHANNEL_1, r); // ?��?�� ?��?��
-                HAL_Delay(r*6+100);
+                HAL_Delay((r-20)*6+100);
                 int tofHitCount = 0;
-                while(tofHitCount < 20){
+                while(tofHitCount < 12){
                     uint8_t tofcount = 0;
-					if(lin ==2 && rev ==0 && r == 20){
+					/*if(lin ==2 && rev ==0 && r == 30){
 						forceSensorZeroPoint = Read_HX711();
 						Hx711Data = 0;
+
 					}else{
 						Hx711Data = Read_HX711() - forceSensorZeroPoint;
-					}
+					}*/
+                    Hx711Data = Read_HX711();
+
+
+
    					startTime = HAL_GetTick();
    					for (int i = 0; i < NUM_SENSOR; i++) {
    						Dev = &vl53l0x_s[i];
@@ -631,15 +637,17 @@ void AutoI2CCommand(){
    					endTime = 0;
    					diffTime = 0;
 
-   					UART_SendWeight_N(Hx711Data,-1/1600.00f,0); // Send the weight data over UART
+   					//UART_SendWeight_N(Hx711Data,-1/1600.00f,0); // Send the weight data over UART
+   					UART_SendWeight_N(Hx711Data,-1/1600.00f,97.4220); // Send the weight data over UART
+
    					HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, " %d %d %d\n", 8*lin, 5*rev, r), 100);
 
-                    if (tofHitCount >= 20) {
+                    if (tofHitCount >= 12) {
                         break;
                     }
                 }
-                setServoAngle(&htim2, TIM_CHANNEL_1, 10); // ?��?�� ?��치로 ?��?���??
-                HAL_Delay((r-10)*6+100);
+                setServoAngle(&htim2, TIM_CHANNEL_1, 20); // ?��?�� ?��치로 ?��?���??
+                HAL_Delay((r-20)*6+100);
 
             }
 
@@ -650,4 +658,24 @@ void AutoI2CCommand(){
         stepLin(8); // ?��?�� ?��?��
     }
     //stepLin(144); // 마�?�?? ?��치로 ?��?��
+}
+
+
+void LoadcellCommand(){
+
+    uint32_t startTime = 0, endTime = 0;
+    uint8_t diffTime = 0;
+    float LoadcellData=0;
+
+	startTime = HAL_GetTick();
+	do {
+		LoadcellData = Read_HX711();
+		UART_SendWeight_N(LoadcellData,-1/1600.00f,97.4220);
+		HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "\n"), 100);
+
+		endTime = HAL_GetTick();
+		diffTime = endTime - startTime;
+	} while (diffTime <= 4000);
+
+
 }

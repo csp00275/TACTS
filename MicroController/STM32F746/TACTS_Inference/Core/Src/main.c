@@ -132,7 +132,7 @@ int main(void)
 
   aiInit();
   startMsg();
-  servo_angle(&htim2, TIM_CHANNEL_1, 0);
+  sayServoAngle(&htim2, TIM_CHANNEL_1, 0);
 
 
   /* USER CODE END 2 */

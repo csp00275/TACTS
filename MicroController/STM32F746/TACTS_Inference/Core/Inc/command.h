@@ -39,6 +39,7 @@ void PointingVertical();
 void PointingRadial();
 void InitializaionCalibrationCommand();
 void AutoI2CCommand();
+void LoadcellCommand();
 
 
 

@@ -30,7 +30,7 @@ while True:
 
 
     # 이 문자열을 파일 경로에 포함시킵니다.
-    file_path = "C:/Users/21310/Desktop/PJH/TACTS/DataCollection_Python/CollectedData/" + time_string + "_4kPa_6.5V_3line_Zero_Data.csv"
+    file_path = "C:/Users/21310/Desktop/PJH/TACTS/DataCollection_Python/CollectedData/" + time_string + "_4kPa_6.5V_4line_.csv"
     #print(file_path)
 
 

@@ -58,7 +58,8 @@ int32_t Read_HX711(void)
 
 void UART_SendWeight_g(float rawData,float loadcell_slope,float loadcell_bias)
 {
-  float weight = loadcell_slope * rawData  + loadcell_bias;
+  float weight = loadcell_slope * rawData;
+  weight += loadcell_bias;
   char buffer[32];
   int data = sprintf(buffer, "%.2f", weight);
 
@@ -72,9 +73,10 @@ void UART_SendWeight_g(float rawData,float loadcell_slope,float loadcell_bias)
 
 void UART_SendWeight_N(float rawData,float loadcell_slope,float loadcell_bias)
 {
-  float weight = loadcell_slope * rawData  + loadcell_bias;
+  float weight = loadcell_slope * rawData;
   weight *=9.8;
   weight /=1000;
+  weight += loadcell_bias;
   char buffer[32];
   int len = sprintf(buffer, "%.4f", weight);
 

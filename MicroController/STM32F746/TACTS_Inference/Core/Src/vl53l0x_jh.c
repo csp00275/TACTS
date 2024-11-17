@@ -172,6 +172,4 @@ void setOnAllDevices(){
   for (int j = 0; j < tcaLength; ++j) {
 	  HAL_I2C_Master_Transmit(&hi2c1, tca_addr[j] << 1, &tca_ch_all_on, 1, 1000);
   }
-
-
 }
