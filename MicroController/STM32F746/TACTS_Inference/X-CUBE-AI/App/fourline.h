@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    fourline.h
   * @author  AST Embedded Analytics Research Platform
-  * @date    Sun Mar 31 17:09:39 2024
+  * @date    Tue Nov 19 15:13:08 2024
   * @brief   AI Tool Automatic Code Generator for Embedded NN computing
   ******************************************************************************
   * @attention
@@ -25,7 +25,7 @@
 
 /******************************************************************************/
 #define AI_FOURLINE_MODEL_NAME          "fourline"
-#define AI_FOURLINE_ORIGIN_MODEL_NAME   "node_240321_2151_4line_i2c_cnn_r10_force33"
+#define AI_FOURLINE_ORIGIN_MODEL_NAME   "node_241119_0136_4kpa_6.5v_4line__cnn_mineli5_force1n"
 
 /******************************************************************************/
 #define AI_FOURLINE_ACTIVATIONS_ALIGNMENT   (4)

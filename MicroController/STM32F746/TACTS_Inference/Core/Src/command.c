@@ -234,8 +234,11 @@ void InferenceHeatI2CCommand()
 	setOnAllDevices();
     HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "sensor test\r\n"), 100);
     uint32_t startTime, endTime, diffTime;
+    uint8_t isBelowMinusTwo = 0;
+
     for (int count =0; count <50000;count ++){
     	uint8_t tofCount =0;
+        isBelowMinusTwo = 0; // -2보다 작은 값이 있는지 여부를 저장
     	startTime = HAL_GetTick();
         for (int i = 0; i < NUM_SENSOR; i++) {
             Dev = &vl53l0x_s[i];
@@ -247,6 +250,10 @@ void InferenceHeatI2CCommand()
                 //filteredValue[i] -= Xmean[i];
                 filteredValue[i] /= Xstd[i];
                 tofCount++;
+                if (filteredValue[i] < -2.0) {
+                	isBelowMinusTwo++;
+
+                }
   			  }
             }
         }
@@ -311,17 +318,17 @@ void InferenceHeatI2CCommand()
 
 		if(tofCount == NUM_SENSOR){
 	        for(int i=0; i<NUM_SENSOR;i++){HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.1f ", filteredValue[i]), 100);}
-	        int a =0;
+
 			aiRun(in_data,out_data);
 			float sqSum= out_data[2]*out_data[2] + out_data[3]*out_data[3];
-			//float sqrange = 0.08;
+
+		if (isBelowMinusTwo>0) {
 		    uint32_t timestamp = HAL_GetTick();
-			if(sqSum>=0.97){
 				out_data[0] = (out_data[0] + 1) * (Fminmax[1] - Fminmax[0]) / 2 + Fminmax[0];
 				out_data[1] = (out_data[1] + 1) * (Zminmax[1] - Zminmax[0]) / 2 + Zminmax[0];
 				if(out_data[1] >=144){out_data[1]=144;}
 				if(out_data[1] <=16){out_data[1]=16;}
-				if(out_data[0]>=Fminmax[0]){
+				if(out_data[0]>=Fminmax[0]+0.5){
 					for(int k=0; k<4;k++){
 						HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f ", out_data[k]), 1000);
 					}
@@ -329,20 +336,15 @@ void InferenceHeatI2CCommand()
 				    HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%lu ", timestamp), 1000);
 				    //HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "1"), 1000);
 				}
-			}else if(a==1){
-				for(int k=0; k<4;k++){
-					HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f ", out_data[k]), 1000);
-				}
-				HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%.2f ", sqSum), 1000);
-			    HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%lu ", timestamp), 1000);
-			    HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "0"), 1000);
-			}
+		}
+
 		}
 		do{
 			endTime = HAL_GetTick();
 			diffTime = endTime - startTime;
 		}while (diffTime <= TIMBUDGET);
 		HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "\n"), 100);
+		//HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, "%d\r\n",isBelowMinusTwo), 100);
     }
 }
 
@@ -476,9 +478,7 @@ void PointingVertical(){
 		HAL_Delay(1000);
 	    stepLin(-25);
 	}
-	//stepLin(130);
 
-	// 30 55 80 110 130
 }
 
 void PointingRadial(){
@@ -596,7 +596,7 @@ void AutoI2CCommand(){
             	setServoAngle(&htim2, TIM_CHANNEL_1, r); // ?��?�� ?��?��
                 HAL_Delay((r-20)*6+100);
                 int tofHitCount = 0;
-                while(tofHitCount < 12){
+                while(tofHitCount < 20){
                     uint8_t tofcount = 0;
 					/*if(lin ==2 && rev ==0 && r == 30){
 						forceSensorZeroPoint = Read_HX711();
@@ -642,7 +642,7 @@ void AutoI2CCommand(){
 
    					HAL_UART_Transmit(&huart1, (uint8_t*)txMsg, sprintf((char*)txMsg, " %d %d %d\n", 8*lin, 5*rev, r), 100);
 
-                    if (tofHitCount >= 12) {
+                    if (tofHitCount >= 20) {
                         break;
                     }
                 }

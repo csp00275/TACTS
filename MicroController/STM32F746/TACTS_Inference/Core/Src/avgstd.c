@@ -48,7 +48,7 @@ void ResetSensorData() {
 }
 
 void InitStats(){
-	for(int i; i<NUM_SENSOR;i++){
+	for(int i=0; i<NUM_SENSOR;i++){
 		sensorAverages[i] = 0;
 		sensorStdDevs[i] = 0;
 	}

@@ -6,9 +6,9 @@
 ../Core/Src/command.c:183:6:ServoCommand	24	static
 ../Core/Src/command.c:196:6:Servo2Command	24	static
 ../Core/Src/command.c:210:6:AvgStdCommand	16	static
-../Core/Src/command.c:229:6:InferenceHeatI2CCommand	56	static
-../Core/Src/command.c:349:6:PointingVertical	64	static
-../Core/Src/command.c:484:6:PointingRadial	16	static
-../Core/Src/command.c:495:6:InitializaionCalibrationCommand	32	static
-../Core/Src/command.c:578:6:AutoI2CCommand	56	static
-../Core/Src/command.c:664:6:LoadcellCommand	24	static
+../Core/Src/command.c:229:6:InferenceHeatI2CCommand	64	static
+../Core/Src/command.c:351:6:PointingVertical	64	static
+../Core/Src/command.c:486:6:PointingRadial	16	static
+../Core/Src/command.c:497:6:InitializaionCalibrationCommand	32	static
+../Core/Src/command.c:580:6:AutoI2CCommand	56	static
+../Core/Src/command.c:666:6:LoadcellCommand	24	static
